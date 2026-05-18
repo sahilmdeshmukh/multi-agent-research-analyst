@@ -70,7 +70,7 @@ def test_researcher_node_returns_notes(mock_env: None) -> None:
     mock_llm = _make_mock_llm(MOCK_SUB_QUESTIONS, expected_notes)
 
     with (
-        patch("research_analyst.agents.researcher.ChatGroq", return_value=mock_llm),
+        patch("research_analyst.llm.ChatGroq", return_value=mock_llm),
         patch(
             "research_analyst.agents.researcher.tavily_search",
             return_value=MOCK_SEARCH_RESULTS,
@@ -104,7 +104,7 @@ def test_researcher_node_preserves_existing_notes(mock_env: None) -> None:
     mock_llm = _make_mock_llm(MOCK_SUB_QUESTIONS, [new_note])
 
     with (
-        patch("research_analyst.agents.researcher.ChatGroq", return_value=mock_llm),
+        patch("research_analyst.llm.ChatGroq", return_value=mock_llm),
         patch(
             "research_analyst.agents.researcher.tavily_search",
             return_value=MOCK_SEARCH_RESULTS,
@@ -138,7 +138,7 @@ def test_researcher_uses_followup_questions_on_revision(mock_env: None) -> None:
     mock_llm = _make_mock_llm(followup_questions, [])
 
     with (
-        patch("research_analyst.agents.researcher.ChatGroq", return_value=mock_llm),
+        patch("research_analyst.llm.ChatGroq", return_value=mock_llm),
         patch(
             "research_analyst.agents.researcher.tavily_search",
             return_value=[],

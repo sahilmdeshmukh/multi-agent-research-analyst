@@ -1,12 +1,11 @@
 from __future__ import annotations
 
-import os
 from urllib.parse import urlparse
 
 from dotenv import load_dotenv
-from langchain_groq import ChatGroq
 from pydantic import ValidationError
 
+from research_analyst.llm import get_groq_llm
 from research_analyst.schemas import AgentState, Critique
 
 load_dotenv()
@@ -32,14 +31,6 @@ that directly target the identified gaps. Make them precise enough for a web sea
 Be concise and factual in your reasoning. Do not fabricate information."""
 
 
-def _get_llm(model_env_var: str = "CRITIC_MODEL") -> ChatGroq:
-    model = os.environ.get(model_env_var, "llama-3.3-70b-versatile")
-    api_key = os.environ.get("GROQ_API_KEY")
-    if not api_key:
-        raise ValueError("GROQ_API_KEY environment variable is not set")
-    return ChatGroq(model=model, api_key=api_key, temperature=0)
-
-
 def _format_notes_for_critique(state: AgentState) -> str:
     """Render the current research notes as a readable block for the LLM."""
     if not state.notes:
@@ -62,6 +53,9 @@ def _count_distinct_domains(state: AgentState) -> int:
     for note in state.notes:
         try:
             parsed = urlparse(note.source_url)
+            # skip if url lacks a scheme — urlparse can't extract netloc without one
+            if not parsed.scheme:
+                continue
             # netloc may be 'www.example.com' — strip leading 'www.'
             netloc = parsed.netloc.lower().removeprefix("www.").strip()
             if netloc:
@@ -73,7 +67,7 @@ def _count_distinct_domains(state: AgentState) -> int:
 
 def critic_node(state: AgentState) -> AgentState:
     """LangGraph node: critique the current research notes and update state."""
-    llm = _get_llm()
+    llm = get_groq_llm("CRITIC_MODEL")
     structured = llm.with_structured_output(Critique)
 
     notes_text = _format_notes_for_critique(state)

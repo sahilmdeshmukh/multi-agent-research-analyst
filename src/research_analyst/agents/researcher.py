@@ -1,11 +1,9 @@
 from __future__ import annotations
 
-import os
-
 from dotenv import load_dotenv
-from langchain_groq import ChatGroq
 from pydantic import ValidationError
 
+from research_analyst.llm import get_groq_llm
 from research_analyst.schemas import AgentState, ResearchNote, ResearchNoteList, ResearchQuery
 from research_analyst.tools.search import tavily_search
 
@@ -22,16 +20,8 @@ Assign a confidence score (0.0–1.0) based on how authoritative and specific th
 Return ONLY claims that appear in the provided text — do not hallucinate."""
 
 
-def _get_llm(model_env_var: str = "RESEARCHER_MODEL") -> ChatGroq:
-    model = os.environ.get(model_env_var, "llama-3.3-70b-versatile")
-    api_key = os.environ.get("GROQ_API_KEY")
-    if not api_key:
-        raise ValueError("GROQ_API_KEY environment variable is not set")
-    return ChatGroq(model=model, api_key=api_key, temperature=0)
-
-
 def _decompose_query(query: str) -> list[str]:
-    llm = _get_llm()
+    llm = get_groq_llm("RESEARCHER_MODEL")
     structured = llm.with_structured_output(ResearchQuery)
     result: ResearchQuery = structured.invoke(
         [
@@ -48,7 +38,7 @@ def _extract_notes_from_results(
     if not search_results:
         return []
 
-    llm = _get_llm()
+    llm = get_groq_llm("RESEARCHER_MODEL")
     # Groq structured output doesn't reliably handle bare list[T]; wrap in a model
     structured = llm.with_structured_output(ResearchNoteList)
 
