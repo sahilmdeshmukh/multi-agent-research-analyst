@@ -20,14 +20,17 @@ Tavily · Streamlit · Pydantic · pytest
 ## Status
 - [x] Day 1: scaffold + Streamlit placeholder
 - [x] Day 2: researcher agent end-to-end
-- [ ] Day 3: critic + synthesizer + graph loop + streaming UI
+- [x] Day 3: critic + synthesizer + graph loop + streaming UI
 - [ ] Day 4: evals + deploy + README + GIF
 
 ## Notes
 - Python 3.14 used (uv resolved 3.14 from system); all deps install fine
 - Groq structured output requires list[T] to be wrapped in a Pydantic model (ResearchNoteList) — bare list[T] schema causes malformed responses
-- Smoke test: 20 real notes on "How does ASML's monopoly affect chip prices?" ✓
-- 3 unit tests passing ✓
+- Shared LLM factory in `src/research_analyst/llm.py` — all agents use `get_groq_llm(model_env_var)`
+- `increment_revision_node` in graph.py handles revision_round increment (keeps conditional edge function pure)
+- asyncio/Streamlit: use plain `asyncio.run()` — Streamlit scripts run in a worker thread with a fresh loop
+- 11 tests passing (3 researcher, 2 critic, 2 synthesizer, 4 graph smoke) ✓
+- Local demo: `uv run streamlit run app.py`
 
 ## Open questions
 (empty — add here as they come up)
