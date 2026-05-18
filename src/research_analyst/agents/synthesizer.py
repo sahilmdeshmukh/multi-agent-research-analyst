@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from pydantic import ValidationError
 
 from research_analyst.llm import get_groq_llm
-from research_analyst.schemas import AgentState, Memo, MemoSection
+from research_analyst.schemas import AgentState, Memo
 
 load_dotenv()
 

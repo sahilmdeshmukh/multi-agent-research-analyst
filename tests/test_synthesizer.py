@@ -86,3 +86,4 @@ def test_synthesizer_fallback_on_error(mock_env: None) -> None:
     # Other state fields must still be preserved
     assert result.query == state.query
     assert result.notes == state.notes
+    assert result.revision_round == state.revision_round
