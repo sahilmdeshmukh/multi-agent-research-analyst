@@ -21,7 +21,7 @@ Tavily · Streamlit · Pydantic · pytest
 - [x] Day 1: scaffold + Streamlit placeholder
 - [x] Day 2: researcher agent end-to-end
 - [x] Day 3: critic + synthesizer + graph loop + streaming UI
-- [ ] Day 4: evals + deploy + README + GIF
+- [x] Day 4: eval harness + architecture diagram + README + HF Spaces deploy (eval results pending Groq token reset)
 
 ## Notes
 - Python 3.14 used (uv resolved 3.14 from system); all deps install fine
