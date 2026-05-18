@@ -5,6 +5,8 @@ import asyncio
 import os
 from typing import Any
 
+from pydantic import ValidationError
+
 import streamlit as st
 from dotenv import load_dotenv
 
@@ -124,16 +126,13 @@ async def _stream_research(
 
                     try:
                         final_state = _AS(**output)
-                    except Exception:
+                    except (ValidationError, TypeError, KeyError) as exc:
+                        activity_lines.append(f"⚠️ Could not parse final state: {exc}")
+                        activity_placeholder.markdown("\n\n".join(activity_lines))
                         final_state = None
 
         # Re-render the activity panel after every relevant event
         activity_placeholder.markdown("\n\n".join(activity_lines))
-
-    # If we didn't capture via synthesizer end event, try one last invoke result
-    if final_state is None:
-        # Attempt to re-run synchronously to get the state (fallback)
-        pass
 
     return final_state
 
@@ -225,31 +224,9 @@ if run_button:
 
         final_state = None
         try:
-            # Run the async streaming function from sync Streamlit context.
-            # asyncio.run() creates a fresh event loop, which avoids conflicts
-            # with any loop Streamlit may have started internally.
-            try:
-                loop = asyncio.get_event_loop()
-                if loop.is_running():
-                    # Streamlit is running inside an existing event loop (e.g. Tornado).
-                    # Use a new thread-based event loop to avoid "cannot run nested" error.
-                    import concurrent.futures
-
-                    with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
-                        future = pool.submit(
-                            asyncio.run,
-                            _stream_research(query, activity_lines, activity_placeholder),
-                        )
-                        final_state = future.result()
-                else:
-                    final_state = loop.run_until_complete(
-                        _stream_research(query, activity_lines, activity_placeholder)
-                    )
-            except RuntimeError:
-                # No event loop exists yet — use asyncio.run()
-                final_state = asyncio.run(
-                    _stream_research(query, activity_lines, activity_placeholder)
-                )
+            final_state = asyncio.run(
+                _stream_research(query, activity_lines, activity_placeholder)
+            )
 
         except Exception as exc:
             st.error(f"**Error during research:** {exc}")
