@@ -48,7 +48,7 @@ def test_memo_word_count_sums_sections():
 
     memo = Memo(
         title="Test",
-        summary="short summary",
+        summary="",  # explicitly empty — word count covers sections only
         sections=[
             MemoSection(heading="A", body="one two three"),
             MemoSection(heading="B", body="four five"),

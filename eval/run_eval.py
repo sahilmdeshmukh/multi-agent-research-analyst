@@ -29,7 +29,7 @@ def _unique_domains(notes: list) -> int:
         try:
             parsed = urlparse(note.source_url)
             if parsed.scheme and parsed.netloc:
-                domains.add(parsed.netloc.lower().removeprefix("www."))
+                domains.add(parsed.netloc.lower().removeprefix("www.").strip())
         except ValueError:
             pass
     return len(domains)
@@ -67,7 +67,7 @@ def _run_once(graph, query: str) -> dict:
     from research_analyst.schemas import AgentState
 
     start = time.perf_counter()
-    result = graph.invoke(AgentState(query=query))
+    result = graph.invoke(AgentState(query=query).model_dump())
     elapsed = time.perf_counter() - start
 
     state = AgentState(**result)
@@ -86,7 +86,7 @@ def _load_queries(limit: int | None = None) -> list[str]:
     with open(QUERIES_FILE) as f:
         data = yaml.safe_load(f)
     queries: list[str] = data["queries"]
-    return queries[:limit] if limit else queries
+    return queries[:limit] if limit is not None else queries
 
 
 def _avg(runs: list[dict], key: str) -> float:
@@ -118,15 +118,25 @@ def _print_table(all_results: list[dict]) -> None:
     print("=" * 76)
 
 
+def _prompt_int(prompt: str) -> int:
+    while True:
+        try:
+            return int(input(prompt))
+        except ValueError:
+            print("  Please enter a whole number.")
+
+
 def _add_hallucination_scores(all_results: list[dict]) -> None:
     print("\nEnter hallucination scores (number of fabricated citations per run).")
     print("Review each memo in eval/results.json before scoring.\n")
     for i, entry in enumerate(all_results):
         q = entry["query"][:60]
-        b_score = input(f"[{i+1}] Baseline    | {q}... : ")
-        m_score = input(f"[{i+1}] Multi-agent | {q}... : ")
-        entry["baseline"]["hallucinated_citations"] = int(b_score)
-        entry["multi_agent"]["hallucinated_citations"] = int(m_score)
+        entry["baseline"]["hallucinated_citations"] = _prompt_int(
+            f"[{i+1}] Baseline    | {q}... : "
+        )
+        entry["multi_agent"]["hallucinated_citations"] = _prompt_int(
+            f"[{i+1}] Multi-agent | {q}... : "
+        )
 
 
 def main() -> None:
