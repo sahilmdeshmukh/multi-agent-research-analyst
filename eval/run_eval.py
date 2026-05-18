@@ -157,13 +157,13 @@ def main() -> None:
 
     for i, query in enumerate(queries, 1):
         print(f"\n[{i}/{len(queries)}] {query[:70]}")
-        print("  → baseline ...")
+        print("  -> baseline ...")
         baseline_metrics = _run_once(baseline_graph, query)
         print(f"     {baseline_metrics['source_count']} notes, "
               f"{baseline_metrics['unique_domains']} domains, "
               f"{baseline_metrics['latency_seconds']}s")
 
-        print("  → multi-agent ...")
+        print("  -> multi-agent ...")
         multi_metrics = _run_once(multi_graph, query)
         print(f"     {multi_metrics['source_count']} notes, "
               f"{multi_metrics['unique_domains']} domains, "
