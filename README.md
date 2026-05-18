@@ -1,2 +1,5 @@
-# multi-agent-research-analyst
-A team of LangGraph agents that researches topics, critiques findings, and produces cited investment-style memos.
+# Multi-Agent Research Analyst
+
+> A team of LangGraph agents that researches topics, critiques findings, and produces cited memos.
+
+**Status:** 🚧 Under construction — sprint week 1.
