@@ -63,7 +63,7 @@ def _count_distinct_domains(state: AgentState) -> int:
         try:
             parsed = urlparse(note.source_url)
             # netloc may be 'www.example.com' — strip leading 'www.'
-            netloc = parsed.netloc.lower().lstrip("www.").strip()
+            netloc = parsed.netloc.lower().removeprefix("www.").strip()
             if netloc:
                 domains.add(netloc)
         except ValueError:
