@@ -3,7 +3,12 @@ from __future__ import annotations
 
 import asyncio
 import os
+import sys
+from pathlib import Path
 from typing import Any
+
+# Make src/research_analyst importable when running on HF Spaces (no editable install)
+sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from pydantic import ValidationError
 
