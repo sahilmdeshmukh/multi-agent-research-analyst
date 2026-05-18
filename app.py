@@ -31,7 +31,8 @@ st.markdown(
     .block-container { padding-top: 1.5rem; }
 
     /* ── Title gradient ─────────────────────────────────── */
-    h1 {
+    .block-container > div:first-child h1 {
+        color: #00d4ff;
         background: linear-gradient(90deg, #00d4ff, #7c3aed);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -46,7 +47,7 @@ st.markdown(
     }
 
     /* ── Caption ────────────────────────────────────────── */
-    [data-testid="stCaptionContainer"] p { color: #2d4a6e !important; }
+    [data-testid="stCaptionContainer"] p { color: #6a8faf !important; }
 
     /* ── Divider ────────────────────────────────────────── */
     hr { border-color: rgba(0, 212, 255, 0.15) !important; }
@@ -85,7 +86,6 @@ st.markdown(
     }
 
     /* ── Agent activity panel (left column markdown) ─────── */
-    [data-testid="column"]:first-child [data-testid="stMarkdownContainer"] > p,
     [data-testid="column"]:first-child [data-testid="stMarkdownContainer"] {
         background: #0d1b2e;
         border: 1px solid rgba(0, 212, 255, 0.12);
@@ -130,13 +130,14 @@ st.markdown(
         color: #8bafd4 !important;
         line-height: 1.75 !important;
     }
-    [data-testid="column"]:last-child [data-testid="stMarkdownContainer"] ol li {
+    [data-testid="column"]:last-child [data-testid="stMarkdownContainer"] ol li,
+    [data-testid="column"]:last-child [data-testid="stMarkdownContainer"] ul li {
         color: #5a7a9a !important;
         font-size: 0.85rem !important;
     }
 
     /* ── Alert / info / warning / error boxes ────────────── */
-    [data-testid="stAlert"] {
+    [data-testid="stAlert"][kind="info"] {
         background: #0d1b2e !important;
         border: 1px solid rgba(0, 212, 255, 0.2) !important;
         border-radius: 8px !important;
