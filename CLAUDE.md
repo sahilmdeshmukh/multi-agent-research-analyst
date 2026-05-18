@@ -19,9 +19,15 @@ Tavily · Streamlit · Pydantic · pytest
 
 ## Status
 - [x] Day 1: scaffold + Streamlit placeholder
-- [ ] Day 2: researcher agent end-to-end
+- [x] Day 2: researcher agent end-to-end
 - [ ] Day 3: critic + synthesizer + graph loop + streaming UI
 - [ ] Day 4: evals + deploy + README + GIF
+
+## Notes
+- Python 3.14 used (uv resolved 3.14 from system); all deps install fine
+- Groq structured output requires list[T] to be wrapped in a Pydantic model (ResearchNoteList) — bare list[T] schema causes malformed responses
+- Smoke test: 20 real notes on "How does ASML's monopoly affect chip prices?" ✓
+- 3 unit tests passing ✓
 
 ## Open questions
 (empty — add here as they come up)
