@@ -23,6 +23,129 @@ st.set_page_config(
     layout="wide",
 )
 
+st.markdown(
+    """
+    <style>
+    /* ── App shell ─────────────────────────────────────── */
+    .stApp { background: #080c14; }
+    .block-container { padding-top: 1.5rem; }
+
+    /* ── Title gradient ─────────────────────────────────── */
+    h1 {
+        background: linear-gradient(90deg, #00d4ff, #7c3aed);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 800 !important;
+    }
+
+    /* ── Subheaders ─────────────────────────────────────── */
+    h2, h3 {
+        color: #4a90a4 !important;
+        letter-spacing: 0.04em;
+    }
+
+    /* ── Caption ────────────────────────────────────────── */
+    [data-testid="stCaptionContainer"] p { color: #2d4a6e !important; }
+
+    /* ── Divider ────────────────────────────────────────── */
+    hr { border-color: rgba(0, 212, 255, 0.15) !important; }
+
+    /* ── Text area ──────────────────────────────────────── */
+    .stTextArea textarea {
+        background: #0d1b2e !important;
+        border: 1px solid rgba(0, 212, 255, 0.2) !important;
+        border-radius: 8px !important;
+        color: #c8d8e8 !important;
+    }
+    .stTextArea textarea:focus {
+        border-color: rgba(0, 212, 255, 0.6) !important;
+        box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.12) !important;
+    }
+    .stTextArea label p {
+        color: #4a90a4 !important;
+        font-size: 0.78rem !important;
+        letter-spacing: 0.08em !important;
+        text-transform: uppercase !important;
+    }
+
+    /* ── Primary button (Run Research) ──────────────────── */
+    .stButton > button[kind="primary"] {
+        background: linear-gradient(135deg, #00d4ff, #0066cc) !important;
+        border: none !important;
+        box-shadow: 0 0 16px rgba(0, 212, 255, 0.35) !important;
+        color: #fff !important;
+        font-weight: 700 !important;
+        border-radius: 8px !important;
+        transition: box-shadow 0.2s ease, transform 0.15s ease !important;
+    }
+    .stButton > button[kind="primary"]:hover {
+        box-shadow: 0 0 28px rgba(0, 212, 255, 0.55) !important;
+        transform: translateY(-1px) !important;
+    }
+
+    /* ── Agent activity panel (left column markdown) ─────── */
+    [data-testid="column"]:first-child [data-testid="stMarkdownContainer"] > p,
+    [data-testid="column"]:first-child [data-testid="stMarkdownContainer"] {
+        background: #0d1b2e;
+        border: 1px solid rgba(0, 212, 255, 0.12);
+        border-radius: 10px;
+        padding: 14px !important;
+        line-height: 1.7 !important;
+    }
+
+    /* ── Memo panel (right column markdown) ──────────────── */
+    [data-testid="column"]:last-child [data-testid="stMarkdownContainer"] {
+        background: linear-gradient(180deg, #0d1b2e 0%, #090e18 100%);
+        border: 1px solid rgba(0, 212, 255, 0.14);
+        border-radius: 10px;
+        padding: 20px !important;
+    }
+    [data-testid="column"]:last-child [data-testid="stMarkdownContainer"] h1 {
+        color: #00d4ff !important;
+        -webkit-text-fill-color: #00d4ff !important;
+        font-size: 1.4rem !important;
+        text-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        margin-bottom: 0.6rem !important;
+    }
+    [data-testid="column"]:last-child [data-testid="stMarkdownContainer"] blockquote {
+        border-left: 3px solid #00d4ff !important;
+        background: rgba(0, 212, 255, 0.05) !important;
+        padding: 10px 16px !important;
+        border-radius: 0 6px 6px 0 !important;
+        color: #8bafd4 !important;
+        font-style: italic !important;
+        margin: 0.5rem 0 1.2rem 0 !important;
+    }
+    [data-testid="column"]:last-child [data-testid="stMarkdownContainer"] h2 {
+        color: #c8d8e8 !important;
+        -webkit-text-fill-color: #c8d8e8 !important;
+        font-size: 1rem !important;
+        border-bottom: 1px solid rgba(0, 212, 255, 0.1) !important;
+        padding-bottom: 4px !important;
+        margin-top: 1.2rem !important;
+        letter-spacing: 0.02em !important;
+    }
+    [data-testid="column"]:last-child [data-testid="stMarkdownContainer"] p {
+        color: #8bafd4 !important;
+        line-height: 1.75 !important;
+    }
+    [data-testid="column"]:last-child [data-testid="stMarkdownContainer"] ol li {
+        color: #5a7a9a !important;
+        font-size: 0.85rem !important;
+    }
+
+    /* ── Alert / info / warning / error boxes ────────────── */
+    [data-testid="stAlert"] {
+        background: #0d1b2e !important;
+        border: 1px solid rgba(0, 212, 255, 0.2) !important;
+        border-radius: 8px !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 # ---------------------------------------------------------------------------
 # Helper: verify required API keys are present
 # ---------------------------------------------------------------------------
