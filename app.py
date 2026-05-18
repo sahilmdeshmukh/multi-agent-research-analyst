@@ -63,6 +63,10 @@ async def _stream_research(
         if not node:
             continue
 
+        # Only process the top-level node event, not inner sub-chain events
+        if event.get("name") != node:
+            continue
+
         if event_name == "on_chain_start":
             if node == "researcher":
                 # Determine the round number from data if available
@@ -120,16 +124,18 @@ async def _stream_research(
 
             elif node == "synthesizer":
                 activity_lines.append("   → ✅ Memo complete")
-                # Capture final state
-                if isinstance(output, dict):
-                    from research_analyst.schemas import AgentState as _AS
+                # Capture final state — output may be AgentState object or dict
+                from research_analyst.schemas import AgentState as _AS
 
-                    try:
+                try:
+                    if isinstance(output, _AS):
+                        final_state = output
+                    elif isinstance(output, dict):
                         final_state = _AS(**output)
-                    except (ValidationError, TypeError, KeyError) as exc:
-                        activity_lines.append(f"⚠️ Could not parse final state: {exc}")
-                        activity_placeholder.markdown("\n\n".join(activity_lines))
-                        final_state = None
+                except (ValidationError, TypeError, KeyError) as exc:
+                    activity_lines.append(f"⚠️ Could not parse final state: {exc}")
+                    activity_placeholder.markdown("\n\n".join(activity_lines))
+                    final_state = None
 
         # Re-render the activity panel after every relevant event
         activity_placeholder.markdown("\n\n".join(activity_lines))
