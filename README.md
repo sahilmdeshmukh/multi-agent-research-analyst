@@ -13,7 +13,7 @@ pinned: false
 
 > A team of LangGraph agents that researches a topic, critiques its own findings, and produces a cited memo. Demonstrates agentic orchestration with an explicit critique loop.
 
-![demo](docs/demo.gif)
+![demo](https://raw.githubusercontent.com/sahilmdeshmukh/multi-agent-research-analyst/main/docs/demo.gif)
 
 [**Live demo →**](https://huggingface.co/spaces/Sahil3717/multi-agent-research-analyst)
 
