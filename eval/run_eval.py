@@ -148,14 +148,32 @@ def main() -> None:
     args = parser.parse_args()
 
     queries = _load_queries(args.query_limit)
-    print(f"Running eval on {len(queries)} queries (baseline + multi-agent each)...")
+
+    # Resume: load any queries already completed in results.json
+    existing: list[dict] = []
+    if RESULTS_FILE.exists():
+        try:
+            existing = json.loads(RESULTS_FILE.read_text()).get("results", [])
+        except (json.JSONDecodeError, KeyError):
+            existing = []
+    done_queries = {e["query"] for e in existing}
+    remaining = [q for q in queries if q not in done_queries]
+
+    if done_queries:
+        print(f"Resuming: {len(done_queries)} already done, {len(remaining)} remaining.")
+    print(f"Running eval on {len(remaining)} queries (baseline + multi-agent each)...")
+
+    if not remaining:
+        print("All queries already complete. Use --add-hallucination-scores to score them.")
+        _print_table(existing)
+        return
 
     baseline_graph = _build_baseline_graph()
     multi_graph = _build_multi_graph()
 
-    all_results: list[dict] = []
+    all_results: list[dict] = list(existing)
 
-    for i, query in enumerate(queries, 1):
+    for i, query in enumerate(remaining, len(done_queries) + 1):
         print(f"\n[{i}/{len(queries)}] {query[:70]}")
         print("  -> baseline ...")
         baseline_metrics = _run_once(baseline_graph, query)
@@ -175,15 +193,23 @@ def main() -> None:
             "multi_agent": multi_metrics,
         })
 
+        # Save after every query so progress is never lost
+        output = {
+            "model": "llama-3.3-70b-versatile",
+            "query_count": len(all_results),
+            "results": all_results,
+        }
+        RESULTS_FILE.write_text(json.dumps(output, indent=2))
+        print(f"  [saved {len(all_results)}/{len(queries)} to results.json]")
+
     if args.add_hallucination_scores:
         _add_hallucination_scores(all_results)
+        RESULTS_FILE.write_text(json.dumps({
+            "model": "llama-3.3-70b-versatile",
+            "query_count": len(all_results),
+            "results": all_results,
+        }, indent=2))
 
-    output = {
-        "model": "llama-3.3-70b-versatile",
-        "query_count": len(queries),
-        "results": all_results,
-    }
-    RESULTS_FILE.write_text(json.dumps(output, indent=2))
     print(f"\nResults saved to {RESULTS_FILE}")
 
     _print_table(all_results)

@@ -1,0 +1,23 @@
+{
+  "model": "llama-3.3-70b-versatile",
+  "query_count": 1,
+  "results": [
+    {
+      "query": "How does ASML's monopoly affect global chip prices?",
+      "baseline": {
+        "source_count": 19,
+        "unique_domains": 14,
+        "latency_seconds": 36.43,
+        "memo_length_words": 307,
+        "hallucinated_citations": 0
+      },
+      "multi_agent": {
+        "source_count": 44,
+        "unique_domains": 23,
+        "latency_seconds": 127.41,
+        "memo_length_words": 339,
+        "hallucinated_citations": 0
+      }
+    }
+  ]
+}
