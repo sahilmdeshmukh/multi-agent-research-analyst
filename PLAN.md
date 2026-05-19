@@ -3,9 +3,6 @@
 ### What we're building
 A LangGraph multi-agent system where three specialized agents collaborate to produce a cited memo on any researchable topic. The differentiator is an **explicit critique loop**: a critic agent reviews the researcher's notes and forces revisions until the evidence base is strong enough, only then does the synthesizer write the memo.
 
-### Why this design
-Most "agent" demos are a single LLM with a search tool. That's table stakes. Real agentic value comes from multiple agents with distinct responsibilities and a feedback loop — which is exactly what this project demonstrates.
-
 ### Success criteria (the bar for "shipped")
 - [ ] User enters a topic in Streamlit, clicks run, sees agents work, gets a cited memo.
 - [ ] The critique loop runs at least once on most queries (visible in UI).
