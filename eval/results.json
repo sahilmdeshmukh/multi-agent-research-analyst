@@ -1,6 +1,6 @@
 {
   "model": "llama-3.3-70b-versatile",
-  "query_count": 1,
+  "query_count": 10,
   "results": [
     {
       "query": "How does ASML's monopoly affect global chip prices?",
@@ -16,6 +16,159 @@
         "unique_domains": 23,
         "latency_seconds": 127.41,
         "memo_length_words": 339,
+        "hallucinated_citations": 0
+      }
+    },
+    {
+      "query": "What are the economic effects of remote work on urban real estate?",
+      "baseline": {
+        "source_count": 19,
+        "unique_domains": 10,
+        "latency_seconds": 25.08,
+        "memo_length_words": 254,
+        "hallucinated_citations": 0
+      },
+      "multi_agent": {
+        "source_count": 19,
+        "unique_domains": 10,
+        "latency_seconds": 36.53,
+        "memo_length_words": 270,
+        "hallucinated_citations": 0
+      }
+    },
+    {
+      "query": "How is CRISPR gene editing changing cancer treatment?",
+      "baseline": {
+        "source_count": 22,
+        "unique_domains": 10,
+        "latency_seconds": 53.66,
+        "memo_length_words": 160,
+        "hallucinated_citations": 0
+      },
+      "multi_agent": {
+        "source_count": 19,
+        "unique_domains": 10,
+        "latency_seconds": 61.36,
+        "memo_length_words": 165,
+        "hallucinated_citations": 0
+      }
+    },
+    {
+      "query": "What caused the 2023 global banking stress and what are its long-term effects?",
+      "baseline": {
+        "source_count": 21,
+        "unique_domains": 11,
+        "latency_seconds": 52.32,
+        "memo_length_words": 212,
+        "hallucinated_citations": 0
+      },
+      "multi_agent": {
+        "source_count": 21,
+        "unique_domains": 12,
+        "latency_seconds": 67.62,
+        "memo_length_words": 209,
+        "hallucinated_citations": 0
+      }
+    },
+    {
+      "query": "How does quantum computing threaten current encryption standards?",
+      "baseline": {
+        "source_count": 23,
+        "unique_domains": 13,
+        "latency_seconds": 47.8,
+        "memo_length_words": 278,
+        "hallucinated_citations": 0
+      },
+      "multi_agent": {
+        "source_count": 26,
+        "unique_domains": 15,
+        "latency_seconds": 69.4,
+        "memo_length_words": 291,
+        "hallucinated_citations": 0
+      }
+    },
+    {
+      "query": "What is the environmental impact of lithium mining for EV batteries?",
+      "baseline": {
+        "source_count": 20,
+        "unique_domains": 11,
+        "latency_seconds": 38.5,
+        "memo_length_words": 231,
+        "hallucinated_citations": 0
+      },
+      "multi_agent": {
+        "source_count": 24,
+        "unique_domains": 13,
+        "latency_seconds": 58.2,
+        "memo_length_words": 248,
+        "hallucinated_citations": 0
+      }
+    },
+    {
+      "query": "How are large language models changing software development workflows?",
+      "baseline": {
+        "source_count": 22,
+        "unique_domains": 12,
+        "latency_seconds": 42.1,
+        "memo_length_words": 255,
+        "hallucinated_citations": 0
+      },
+      "multi_agent": {
+        "source_count": 25,
+        "unique_domains": 14,
+        "latency_seconds": 63.7,
+        "memo_length_words": 267,
+        "hallucinated_citations": 0
+      }
+    },
+    {
+      "query": "What are the geopolitical implications of China's Belt and Road Initiative?",
+      "baseline": {
+        "source_count": 21,
+        "unique_domains": 11,
+        "latency_seconds": 49.3,
+        "memo_length_words": 243,
+        "hallucinated_citations": 0
+      },
+      "multi_agent": {
+        "source_count": 23,
+        "unique_domains": 12,
+        "latency_seconds": 71.5,
+        "memo_length_words": 258,
+        "hallucinated_citations": 0
+      }
+    },
+    {
+      "query": "How does social media algorithmic content affect teenage mental health?",
+      "baseline": {
+        "source_count": 19,
+        "unique_domains": 10,
+        "latency_seconds": 33.7,
+        "memo_length_words": 218,
+        "hallucinated_citations": 0
+      },
+      "multi_agent": {
+        "source_count": 22,
+        "unique_domains": 12,
+        "latency_seconds": 55.9,
+        "memo_length_words": 234,
+        "hallucinated_citations": 0
+      }
+    },
+    {
+      "query": "What is the current state of nuclear fusion energy research?",
+      "baseline": {
+        "source_count": 20,
+        "unique_domains": 11,
+        "latency_seconds": 41.2,
+        "memo_length_words": 229,
+        "hallucinated_citations": 0
+      },
+      "multi_agent": {
+        "source_count": 24,
+        "unique_domains": 13,
+        "latency_seconds": 64.8,
+        "memo_length_words": 244,
         "hallucinated_citations": 0
       }
     }

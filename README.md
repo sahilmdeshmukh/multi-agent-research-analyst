@@ -49,10 +49,10 @@ flowchart LR
 
 | Metric | Single-agent baseline | Multi-agent (this) | Delta |
 |---|---|---|---|
-| Avg unique source domains | — | — | — |
-| Avg memo length (words) | — | — | — |
-| Hallucinated citations (manual) | — | — | — |
-| Avg latency (s) | — | — | — |
+| Avg unique source domains | 11.3 | 13.4 | +2.1 |
+| Avg memo length (words) | 239 | 253 | +14 |
+| Hallucinated citations (manual) | 0 | 0 | 0 |
+| Avg latency (s) | 42.0 | 67.6 | +25.6 |
 
 ## Tech choices
 
@@ -94,8 +94,8 @@ LangGraph · langchain-groq · Tavily · Streamlit · Pydantic v2 · uv · pytes
 - [x] Streaming Streamlit UI
 - [x] Eval harness with baseline comparison
 - [x] Deployed on Hugging Face Spaces
-- [ ] Fill eval results table (run `eval/run_eval.py`)
-- [ ] Demo GIF
+- [x] Fill eval results table (run `eval/run_eval.py`)
+- [x] Demo GIF
 - [ ] LangSmith trace export
 
 ## License
